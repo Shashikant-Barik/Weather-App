@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: "Roboto", sans-serif;
+      background: url("data:image/jpeg;base64,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");
+      margin: 0;
+      padding: 0;
+      color: #333;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 60px;
+      z-index: 1001;
+    }
+
+    .navbar span {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .navbar a::after {
+      content: "";
+      height: 2px;
+      background: #fff;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      transition: width 0.3s ease;
+    }
+
+    .navbar a:hover::after {
+      width: 100%;
+    }
+
+    /* Container Styles */
+    .container {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+      width: 90vw;
+      max-width: 800px;
+      height: calc(100vh - 100px);
+      overflow-y: auto;
+      margin: 80px auto 20px;
+      position: relative;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #5563de;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    .temperature {
+      font-size: 64px;
+      font-weight: 700;
+      color: #ff6b6b;
+      margin: 20px 0;
+    }
+
+    .weather-details {
+      font-size: 18px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      --fancy-button-gradient-0: #8d49fd;
+      --fancy-button-gradient-50: #7f56f3;
+      --fancy-button-gradient-100: #5691f3;
+      --fancy-button-inner-shadow-top: rgba(233, 209, 255, 0.2);
+      --fancy-button-inner-shadow-top-lg: rgba(9, 12, 60, 0.1);
+      --fancy-button-inner-shadow-bottom: rgba(137, 222, 246, 0.3);
+      --fancy-button-shine-top: #e9d1ff;
+      --fancy-button-shine-bottom: #adfff9;
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 21px;
+      text-shadow: 0px 0.5px 0.5px rgba(0, 0, 0, 0.2);
+      padding: 0;
+      margin: 0;
+      appearance: none;
+      border: none;
+      outline: none;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      z-index: 1;
+      border-radius: 25px;
+      color: #fff;
+      background-image: linear-gradient(to bottom,
+          var(--fancy-button-gradient-0) 0%,
+          var(--fancy-button-gradient-50) 50%,
+          var(--fancy-button-gradient-100) 100%);
+      box-shadow:
+        0px 4px 12px rgba(9, 12, 60, 0.15),
+        0px 2px 8px rgba(9, 12, 60, 0.15),
+        0px 1px 3px var(--fancy-button-inner-shadow-top-lg),
+        inset 0px 1px 1px var(--fancy-button-inner-shadow-top),
+        inset 0px -1px 3px var(--fancy-button-inner-shadow-bottom);
+    }
+
+    .btn:before,
+    .btn:after {
+      content: "";
+      position: absolute;
+      border-radius: inherit;
+      will-change: transform;
+    }
+
+    .btn:before {
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--fancy-button-shine-top);
+      width: 96px;
+      height: 6px;
+      top: -3px;
+      opacity: 0.6;
+      filter: blur(6px);
+      transition: opacity 0.25s;
+    }
+
+    .btn:after {
+      inset: 0;
+      background-size: cover;
+      z-index: 2;
+      opacity: 0.3;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    .btn span {
+      display: block;
+      padding: 12px 24px;
+      border-radius: inherit;
+      overflow: hidden;
+      position: relative;
+      background-image: linear-gradient(to bottom,
+          var(--fancy-button-shine-top),
+          transparent 8px);
+      background-position: 0 -6px;
+      background-repeat: no-repeat;
+      z-index: 1;
+    }
+
+    .btn span:before,
+    .btn span:after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background-color: var(--fancy-button-shine-bottom);
+      transition: opacity 0.25s, transform 0.25s;
+      will-change: transform;
+    }
+
+    .btn span:before {
+      width: 92px;
+      height: 8px;
+      bottom: -4px;
+      opacity: 0.75;
+      filter: blur(6px);
+    }
+
+    .btn span:after {
+      width: 112px;
+      height: 1px;
+      bottom: 0;
+      opacity: 0.9;
+      filter: blur(1px);
+    }
+
+    .btn:hover span:before {
+      opacity: 0.8;
+    }
+
+    .btn:hover span:before {
+      transform: translateX(-50%) scale(1.25);
+    }
+
+    .btn:hover span:after {
+      opacity: 1;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      border: 2px solid #ddd;
+      border-radius: 30px;
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"]:focus {
+      border-color: #5563de;
+    }
+
+    .forcast_hourly {
+      background-color: #33333340;
+    }
+
+    .forecast {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .forecast h3 {
+      margin-bottom: 15px;
+    }
+
+    .forecast .hourly,
+    .forecast .daily {
+      display: flex;
+      overflow-x: auto;
+    }
+
+    .forecast .hourly div,
+    .forecast .daily div {
+      padding: 15px;
+      min-width: 90px;
+      text-align: center;
+    }
+
+    .forecst_daily {
+      display: block;
+      flex-direction: row;
+    }
+
+    .forecast_days {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .suggestions {
+      border: 1px solid #ccc;
+      color: black;
+      max-height: 150px;
+      overflow-y: auto;
+      background: #fff;
+      position: absolute;
+      width: 94%;
+      left: 3%;
+      top: 46.5px;
+      border-radius: 5px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .suggestion-item {
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .suggestion-item:hover {
+      background: #f0f0f0;
+    }
+
+    .Back {
+      display: flex;
+      height: 3em;
+      width: 50px;
+      align-items: center;
+      justify-content: center;
+      background-color: #eeeeee4b;
+      border-radius: 3px;
+      letter-spacing: 1px;
+      transition: all 0.2s linear;
+      cursor: pointer;
+      border: none;
+      background: #fff;
+    }
+
+    .Back>svg {
+      margin: 0 5px;
+      font-size: 20px;
+      transition: all 0.4s ease-in;
+    }
+
+    .Back:hover>svg {
+      font-size: 1.2em;
+      transform: translateX(-5px);
+    }
+
+    .Back:hover {
+      box-shadow: 9px 9px 33px #00000080, -9px -9px 33px #00000080;
+      transform: translateY(-2px);
+    }
+
+    @media screen and (max-width: 480px) {
+      body {
+        background: url("https://w0.peakpx.com/wallpaper/90/390/HD-wallpaper-simple-abstract-blue-blur-colors-dark-gradient-light-note.jpg");
+      }
+
+      .container {
+        background: rgba(0, 0, 0, 0.489);
+        padding: 30px;
+        border-radius: 5px;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        width: 90vw;
+        max-width: 800px;
+        height: calc(100vh - 100px);
+        overflow-y: auto;
+        margin: 80px auto 20px;
+        position: relative;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #ffffff;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        font-family: "Poppins";
+        font-size: 18px;
+      }
+
+      h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+        text-align: center;
+        color: #cdfcff;
+      }
+
+      .day {
+        width: 100%;
+        font-size: 30px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        margin: 10px;
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      .navbar {
+        width: 100%;
+        display: flex;
+        flex-direction: column ;
+        height: 10%;
+      }
+
+      .logo_home {
+        width: 50%;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+      }
+
+      .logo {
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        font-size: 1rem !important;
+      }
+
+      .nav_home {
+        width: 100%;
+        align-items: center;
+        margin-top: 5px;
+      }
+
+      .nav_links {
+        text-align: center;
+        font-size: 0.65rem !important;
+      }
+    }
+
+    .date {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .min_max {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .icon {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .day {
+      width: 100%;
+      font-size: 30px;
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff0a;
+      text-align: center;
+      justify-content: center;
+      margin: 10px;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    button {
+      background-color: #33333365;
+      border-radius: 50px;
+      color: white;
+    }
+
+    .navbar {
+      width: 100%;
+    }
+
+    .logo_home {
+      width: 50%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+    }
+
+    .logo {
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      font-size: 1.9rem ;
+    }
+
+    .nav_home {
+      width: 70%;
+      align-items: center;
+    }
+
+    .nav_links {
+      text-align: center;
+      font-size: 1.5rem ;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo_home">
+      <span class="logo">🌦️ Weather App</span>
+    </div>
+    <div class="nav_home">
+      <div class="nav_links">
+        <a href="#" onclick="showHome()">Home</a>
+        <a href="#" onclick="showSettings()">Settings</a>
+        <a href="#" onclick="addToHome()">Add to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Container -->
+  <div class="container" id="search-container">
+    <h1>Weather App</h1>
+    <div style="position: relative">
+      <input type="text" id="city" placeholder="Enter city name" oninput="getSuggestions()" />
+      <div id="suggestions" class="suggestions"></div>
+    </div>
+    <button onclick="getWeather()" class="btn">
+      <span>Get Weather</span>
+    </button>
+    <!-- Bookmarks container below the Get Weather button -->
+    <div id="bookmarks-list" style="margin-top:20px;">
+      <h3>Bookmarked Cities</h3>
+      <div id="bookmarks-container"></div>
+      <button id="clear-bookmarks" style="margin-top:10px; padding:5px 10px; cursor:pointer; border-radius: 50px;">Clear
+        Bookmarks <img style="width: 15px;" src="https://cdn-icons-png.flaticon.com/128/3395/3395538.png" alt=""
+          srcset=""> </button>
+    </div>
+  </div>
+
+  <!-- Weather Container -->
+  <div class="container hidden" id="weather-container">
+    <button onclick="showHome()" id="back" class="Back">
+      <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024">
+        <path
+          d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z">
+        </path>
+      </svg>
+    </button>
+    <h1>Weather Info</h1>
+    <p class="temperature" id="temperature"></p>
+    <p class="weather-details" id="weather-details"></p>
+    <div class="forecast" id="forecast"></div>
+    <div class="forecst_daily">
+      <div class="forecast_days" id="forecast-5-days"></div>
+    </div>
+  </div>
+
+  <!-- Settings Modal (Appended via existing HTML, no CSS changes) -->
+  <div id="settings-modal"
+    style="display:none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5);">
+    <div style="background: #fff; margin: 15% auto; padding: 20px; width: 80%; max-width: 400px; border-radius: 10px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="color: rgb(0, 0, 0);margin: 0;">Settings</h2>
+        <span id="close-settings" style="cursor: pointer; font-size: 24px;">&times;</span>
+      </div>
+      <div style="margin-top: 10px;">
+        <div>
+          <p style="color: rgb(0, 0, 0);">Toggle Temperature Unit:</p>
+          <button id="temp-c-btn">C</button>
+          <button id="temp-f-btn">F</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Global variables for settings and weather data
+    window.currentTempUnit = "C"; // Default temperature unit
+    window.darkModeEnabled = false;
+    window.weatherData = null;
+
+    // Navbar functions
+    function showHome() {
+      document.getElementById("search-container").classList.remove("hidden");
+      document.getElementById("weather-container").classList.add("hidden");
+    }
+
+    // Show Settings Modal
+    function showSettings() {
+      document.getElementById("settings-modal").style.display = "block";
+    }
+
+    // Close Settings Modal when clicking the close icon or outside modal content
+    document.getElementById("close-settings").addEventListener("click", function () {
+      document.getElementById("settings-modal").style.display = "none";
+    });
+    window.addEventListener("click", function (event) {
+      const modal = document.getElementById("settings-modal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    });
+
+    // Add a city to bookmarks and update localStorage and UI
+    function addBookmark(city) {
+      let bookmarks = localStorage.getItem("bookmarks");
+      bookmarks = bookmarks ? JSON.parse(bookmarks) : [];
+      // Avoid duplicate bookmarks
+      if (!bookmarks.includes(city)) {
+        bookmarks.push(city);
+        localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+        updateBookmarksList();
+      }
+    }
+
+    // Called when clicking "Add to Home" in the navbar
+    function addToHome() {
+      const city = document.getElementById("city").value;
+      if (city.trim() === "") {
+        alert("Please enter a city name to add.");
+        return;
+      }
+      addBookmark(city);
+    }
+
+    // Update bookmarks list displayed on the home screen
+    function updateBookmarksList() {
+      const container = document.getElementById("bookmarks-container");
+      let bookmarks = localStorage.getItem("bookmarks");
+      bookmarks = bookmarks ? JSON.parse(bookmarks) : [];
+      container.innerHTML = "";
+      bookmarks.forEach(function (city) {
+        const btn = document.createElement("button");
+        btn.innerText = city;
+        btn.style.margin = "5px";
+        btn.style.padding = "5px 10px";
+        btn.style.cursor = "pointer";
+        // When clicking the bookmark, load the weather for that city
+        btn.addEventListener("click", function () {
+          document.getElementById("city").value = city;
+          getWeather();
+        });
+        container.appendChild(btn);
+      });
+    }
+
+    // Ensure proper clearing of bookmarks
+    function clearBookmarks() {
+      if (confirm("Are you sure you want to clear all bookmarks?")) {
+        localStorage.removeItem("bookmarks"); // Remove bookmarks from localStorage
+        document.getElementById("bookmarks-container").innerHTML = ""; // Clear UI
+      }
+    }
+
+    document.getElementById("clear-bookmarks").addEventListener("click", clearBookmarks);
+
+    // On page load, update bookmarks list
+    updateBookmarksList();
+
+    // Override getWeather to store fetched data, and render based on settings
+    async function getWeather() {
+      const city = document.getElementById("city").value || "London";
+      const apiKey = "50469147cbb44ed59c342421252703";
+      const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=5&aqi=yes`;
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        window.weatherData = data;
+        document.getElementById("search-container").classList.add("hidden");
+        document.getElementById("weather-container").classList.remove("hidden");
+        reRenderWeather();
+      } catch (error) {
+        document.getElementById("weather-container").innerHTML =
+          "<p>Could not fetch weather data.</p>";
+        console.error("Error fetching weather data:", error);
+      }
+    }
+
+    // Re-render weather info based on the current temperature unit
+    function reRenderWeather() {
+      const data = window.weatherData;
+      if (!data) return;
+      const unit = window.currentTempUnit;
+      const currentTemp = unit === "C" ? data.current.temp_c : data.current.temp_f;
+      document.getElementById("temperature").innerText = `${currentTemp}°${unit}`;
+      document.getElementById("weather-details").innerHTML = `
+        <p>Condition: ${data.current.condition.text}</p>
+        <p>Humidity: ${data.current.humidity}%</p>
+        <p>Wind Speed: ${data.current.wind_kph} km/h</p>
+      `;
+      let forecastHTML = '<h3>Next 24 Hours Forecast:</h3><div class="hourly">';
+      const currentTime = new Date(data.location.localtime);
+      const currentHour = currentTime.getHours();
+      let hoursAdded = 0;
+      for (let hourData of data.forecast.forecastday[0].hour) {
+        const hourDate = new Date(hourData.time);
+        if (hourDate.getHours() >= currentHour && hoursAdded < 24) {
+          const tempHour = unit === "C" ? hourData.temp_c : hourData.temp_f;
+          forecastHTML += `
+            <div>
+              <p>${hourDate.getHours()}:00</p>
+              <p>${tempHour}°${unit}</p>
+              <img src="${hourData.condition.icon}" alt="icon">
+            </div>
+          `;
+          hoursAdded++;
+        }
+      }
+      if (hoursAdded < 24 && data.forecast.forecastday.length > 1) {
+        for (let hourData of data.forecast.forecastday[1].hour) {
+          if (hoursAdded < 24) {
+            const hourDate = new Date(hourData.time);
+            const tempHour = unit === "C" ? hourData.temp_c : hourData.temp_f;
+            forecastHTML += `
+              <div>
+                <p>${hourDate.getHours()}:00</p>
+                <p>${tempHour}°${unit}</p>
+                <img src="${hourData.condition.icon}" alt="icon">
+              </div>
+            `;
+            hoursAdded++;
+          } else {
+            break;
+          }
+        }
+      }
+      forecastHTML += "</div>";
+      document.getElementById("forecast").innerHTML = forecastHTML;
+      let forecast5DaysHTML = '<h3>Next 5 Days Forecast:</h3><div class="daily">';
+      data.forecast.forecastday.forEach((day) => {
+        const maxTemp = unit === "C" ? day.day.maxtemp_c : day.day.maxtemp_f;
+        const minTemp = unit === "C" ? day.day.mintemp_c : day.day.mintemp_f;
+        forecast5DaysHTML += `
+          <div class="day">
+            <div class = "date">
+              <span>${day.date}</span>
+            </div>
+            <div class= "min_max">
+              <span> ${maxTemp}°${unit}</span>
+              <span> /${minTemp}°${unit}</span>
+            </div>
+            <div class = "icon">
+              <span><img class="icon_day" src="${day.day.condition.icon}" alt="icon"></span>
+            </div>
+          </div>
+        `;
+      });
+      forecast5DaysHTML += "</div>";
+      document.getElementById("forecast-5-days").innerHTML = forecast5DaysHTML;
+    }
+
+    // Event listeners for temperature unit toggles
+    document.getElementById("temp-c-btn").addEventListener("click", function () {
+      window.currentTempUnit = "C";
+      reRenderWeather();
+    });
+    document.getElementById("temp-f-btn").addEventListener("click", function () {
+      window.currentTempUnit = "F";
+      reRenderWeather();
+    });
+
+    // Provide city suggestions as the user types
+    async function getSuggestions() {
+      const query = document.getElementById("city").value;
+      if (query.length < 2) {
+        document.getElementById("suggestions").innerHTML = "";
+        return;
+      }
+      const apiKey = "50469147cbb44ed59c342421252703";
+      const url = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${query}`;
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        let suggestionsHTML = "";
+        data.forEach((place) => {
+          suggestionsHTML += `<div class='suggestion-item' onclick='selectCity("${place.name}")'>${place.name}, ${place.country}</div>`;
+        });
+        document.getElementById("suggestions").innerHTML = suggestionsHTML;
+      } catch (error) {
+        document.getElementById("suggestions").innerHTML = "";
+        console.error("Error fetching suggestions:", error);
+      }
+    }
+
+    // Update input when a suggestion is clicked
+    function selectCity(city) {
+      document.getElementById("city").value = city;
+      document.getElementById("suggestions").innerHTML = "";
+    }
+  </script>
+</body>
+
+</html>
